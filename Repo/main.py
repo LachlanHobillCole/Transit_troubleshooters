@@ -12,6 +12,8 @@ from folium import PolyLine, Marker
 
 import Data_prep
 
+
+
 # %%
 
 load_dotenv(override=True)
@@ -19,17 +21,17 @@ load_dotenv(override=True)
 # %%
 # Example usage
 data_path = Path(os.getenv("data_path"))
-dataframes = Data_prep.read_text_files_to_dataframes(data_path)
+dataframes = Data_prep.read_files_to_dataframes(data_path)
+#csv_dataframes = Data_prep.read_csv_files_to_dataframes(data_path)
 
 # %%
-# You can now access each DataFrame by its file name
+# Can now access each text file as a DataFrame by its file name
 for filename, df in dataframes.items():
     print(f"DataFrame Name: {filename}")
     print(df.head())  
 
-
 # %%
-dataframes['trips'].head(3)
+dataframes['routes_1'].head(3)
 # %%
 
 # Join the data frames to create a complete data set
