@@ -10,6 +10,7 @@ import folium
 from folium import PolyLine, Marker
 
 import Data_prep
+import Calculations
 
 # %%
 
@@ -28,7 +29,7 @@ for filename, df in dataframes.items():
     print(df.head())  
 
 # %%
-dataframes['agency'].head(10)
+dataframes['trips'].head(10)
 #dataframes['trips'].query("route_id == '2503_7001'")
 
 # %%
@@ -75,8 +76,6 @@ Combined_bus_data = pd.merge(Combined_bus_data, dataframes['agency'], on='agency
 #shap_trip = pd.merge(dataframes['trips'], dataframes['shapes'], on='shape_id')
 
 # %%
-
-
 # Create a map centered around a specific location (e.g., Sydney)
 m = folium.Map(location=[-33.8688, 151.2093], zoom_start=10)
 
@@ -94,4 +93,11 @@ for stop_data in Combined_bus_data[['stop_lat', 'stop_lon', 'stop_name']].drop_d
 m.save('bus_routes_map.html')
 
 
+# %%
+emission_factors = Calculations.Emission_Factor()
+
+fuel_type = 'Diesel'
+CO2_emissions = emission_factors.get_emission_factor(fuel_type)
+if CO2_emissions is not None:
+    print(f"Emission factor for {fuel_type}:{CO2_emissions}")
 # %%
