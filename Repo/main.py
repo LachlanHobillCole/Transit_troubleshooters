@@ -16,6 +16,7 @@ import Calculations
 # %%
 
 load_dotenv(override=True)
+cert_path = os.getenv("CERT_PATH", True) # True forces full verificationmy_request['verify'] = cert_path
 
 # %%
 # Example usage
