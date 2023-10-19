@@ -1,0 +1,16 @@
+[tool.black]
+line-length = 88  # Default line length is 88 characters
+
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
