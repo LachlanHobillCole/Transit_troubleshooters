@@ -8,9 +8,45 @@ import plotly.express as px
 
 import folium
 from folium import PolyLine, Marker
-
+import requests
+import zipfile
 import Data_prep
 import Calculations
+import Data
+
+
+#%%
+import requests
+
+from google.transit import gtfs_realtime_pb2
+from google.protobuf.json_format import MessageToDict
+from google.protobuf.json_format import MessageToJson
+
+from protobuf_to_dict import protobuf_to_dict
+
+load_dotenv()
+
+FILENAME_SCHEDULE = 'gtfs.zip'
+app_name = os.getenv("APP_NAME")
+api_key = os.getenv("API_KEY")
+BASE_URL = "https://api.transport.nsw.gov.au"
+BUS_POSITION_URI = f"{BASE_URL}/v1/gtfs/vehiclepos/buses"
+BUS_SCHEDULE_URI = f"{BASE_URL}/v1/gtfs/schedule/buses"
+FERRY_POSITION = f"{BASE_URL}/v1/gtfs/historical"
+headers = {
+    "Authorization": f"apikey {api_key}"
+}
+request_details = dict(
+    headers=headers,
+    stream=True
+)
+
+cert = os.getenv("CERT", True)
+request_details['verify'] = cert
+
+response = requests.get(BUS_SCHEDULE_URI, **request_details)
+response
+
 
 
 # %%
